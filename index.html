@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DJI Mavic 4 Pro</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #7C4DFF;
+      --primary-hover: #6C38FF;
+      --primary-light: #F3EFFF;
+      --bg-gradient: #F8F9FE;
+      --card-bg: #FFFFFF;
+      --text-main: #1E293B;
+      --text-muted: #64748B;
+      --border-color: #E2E8F0;
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      --shadow-hover: 0 12px 24px -4px rgba(124, 77, 255, 0.15);
+      --radius-lg: 24px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg-gradient);
+      color: var(--text-main);
+    }
+
+    body { line-height: 1.6; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(124, 77, 255, 0.35);
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(124, 77, 255, 0.45);
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      width: 100%;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 12px 32px;
+      border-radius: 9999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: #FFFFFF;
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 8px 18px;
+      font-size: 0.875rem;
+      background: var(--primary);
+      color: #FFF;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-sm:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .highlight { color: var(--primary); }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 16px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      background-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: -60px;
+      right: 20px;
+      background: #10B981;
+      color: #FFF;
+      padding: 12px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+      transition: all 0.4s ease;
+      z-index: 1000;
+    }
+
+    .toast.show { bottom: 30px; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(248, 249, 254, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+      z-index: 100;
+      padding: 14px 0;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-main);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: var(--transition);
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .nav-link:hover, .nav-link.active { color: var(--primary); }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary);
+      border-radius: 2px;
+    }
+
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .section-header h2 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    .hero-section { margin-bottom: 90px; }
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .main-image-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .main-image-card:hover { box-shadow: var(--shadow-hover); }
+
+    .main-image-card img {
+      width: 100%;
+      max-width: 420px;
+      transition: var(--transition);
+    }
+
+    .main-image-card:hover img { transform: scale(1.03); }
+
+    .discount-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+    }
+
+    .product-details {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .tags-group { display: flex; gap: 10px; }
+    .product-title { font-size: 2.75rem; font-weight: 800; }
+    .product-description { color: var(--text-muted); font-size: 1.05rem; }
+
+    .price-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .current-price { font-size: 2.25rem; font-weight: 800; }
+    .original-price { font-size: 1.25rem; color: var(--text-muted); text-decoration: line-through; }
+    .save-badge {
+      background: #FEE2E2;
+      color: #EF4444;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.8125rem;
+    }
+
+    .installment-text { font-size: 0.9rem; color: var(--text-muted); }
+
+    .cta-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .features-section { margin-bottom: 90px; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(124, 77, 255, 0.3);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      margin-bottom: 20px;
+    }
+
+    .icon-purple { background: #F3EFFF; color: #7C4DFF; }
+    .icon-teal   { background: #E6FFFA; color: #0D9488; }
+    .icon-green  { background: #DCFCE7; color: #16A34A; }
+    .icon-amber  { background: #FEF3C7; color: #D97706; }
+    .icon-blue   { background: #DBEAFE; color: #2563EB; }
+    .icon-rose   { background: #FFE4E6; color: #E11D48; }
+
+    .feature-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .feature-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+    .feature-card p { color: var(--text-muted); font-size: 0.925rem; margin-bottom: 24px; flex-grow: 1; }
+
+    .feature-stat {
+      border-top: 1px dashed var(--border-color);
+      padding-top: 16px;
+    }
+
+    .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--primary); display: block; }
+    .stat-label { font-size: 0.8125rem; color: var(--text-muted); }
+
+    .reviews-section { margin-bottom: 90px; }
+    .reviews-layout {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 32px;
+    }
+
+    .rating-summary-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      text-align: center;
+      height: fit-content;
+    }
+
+    .big-score { font-size: 4rem; font-weight: 800; line-height: 1; }
+    .stars-group { color: #F59E0B; margin: 8px 0; display: flex; justify-content: center; gap: 4px; }
+    .total-reviews { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 24px; }
+
+    .bar-row { display: flex; align-items: center; gap: 10px; font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 8px; }
+    .bar-bg { flex-grow: 1; height: 8px; background: #F1F5F9; border-radius: 9999px; overflow: hidden; }
+    .bar-fill { height: 100%; background: #F59E0B; border-radius: 9999px; }
+
+    .rating-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 20px;
+      margin-top: 20px;
+    }
+
+    .metric-val { font-size: 1.25rem; font-weight: 800; display: block; }
+    .metric-lbl { font-size: 0.75rem; color: var(--text-muted); }
+
+    .reviews-list { display: flex; flex-direction: column; gap: 20px; }
+    .review-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .review-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+
+    .review-header { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+    .avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+    .user-info h4 { font-size: 1rem; font-weight: 700; }
+    .user-role { font-size: 0.8125rem; color: var(--text-muted); }
+
+    .stars-inline { color: #F59E0B; font-size: 0.8125rem; display: flex; align-items: center; gap: 2px; }
+    .stars-inline span { color: var(--text-main); font-weight: 700; margin-left: 4px; }
+
+    .review-meta { margin-left: auto; text-align: right; }
+    .verified-tag { background: var(--primary-light); color: var(--primary); font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+    .review-date { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px; }
+
+    .related-section { margin-bottom: 40px; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-hover); }
+
+    .card-img-wrapper {
+      background: #F1F5F9;
+      padding: 24px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 180px;
+    }
+
+    .card-img-wrapper img { max-height: 130px; max-width: 100%; object-fit: contain; transition: var(--transition); }
+    .product-card:hover .card-img-wrapper img { transform: scale(1.06); }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+
+    .badge-teal   { background: #CCFBF1; color: #0D9488; }
+    .badge-green  { background: #DCFCE7; color: #16A34A; }
+    .badge-blue   { background: #DBEAFE; color: #2563EB; }
+    .badge-orange { background: #FFEDD5; color: #EA580C; }
+
+    .card-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .card-content p { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; flex-grow: 1; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .card-price { font-size: 1.25rem; font-weight: 800; }
+
+    .all-accessories-container {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .footer {
+      background: #0B0F19;
+      color: #FFFFFF;
+      padding: 60px 24px 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    .footer-brand .logo {
+      color: #FFFFFF;
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      color: #94A3B8;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 300px;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      background: #1E293B;
+      color: #FFFFFF;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .social-icon:hover {
+      background: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .footer-col h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #FFFFFF;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-col ul li a {
+      text-decoration: none;
+      color: #94A3B8;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .footer-col ul li a:hover {
+      color: #FFFFFF;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid #1E293B;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #94A3B8;
+    }
+
+    .payment-methods {
+      display: flex;
+      gap: 10px;
+    }
+
+    .payment-badge {
+      background: #FFFFFF;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .payment-badge.paypal { color: #003087; }
+    .payment-badge.mc { color: #EB001B; font-style: italic; }
+    .payment-badge.visa { color: #1434CB; font-style: italic; letter-spacing: -1px; }
+
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .reviews-layout { grid-template-columns: 1fr; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .footer-container { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toast-message">Item added to cart!</span>
+  </div>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="logo">
+        <div class="logo-icon"><i class="fa-solid fa-helicopter"></i></div>
+        <span>DJI Mavic 4 Pro</span>
+      </a>
+      
+      <ul class="nav-links">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#specifications" class="nav-link">Specifications</a></li>
+        <li><a href="#reviews" class="nav-link">Rating & Reviews</a></li>
+        <li><a href="#related-products" class="nav-link">Related Products</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    
+    <section id="home" class="hero-section">
+      <div class="hero-container">
+        <div class="main-image-card">
+          <span class="discount-badge">-12% OFF</span>
+          <img src="./hero-img-CYauTLx2.png" alt="DJI Mavic 4 Pro Drone" />
+        </div>
+
+        <div class="product-details">
+          <div class="tags-group">
+            <span class="tag">Professional</span>
+            <span class="tag">In Stock</span>
+            <span class="tag">Free Shipping</span>
+          </div>
+
+          <h1 class="product-title">DJI Mavic 4 <span class="highlight">Pro</span></h1>
+
+          <p class="product-description">
+            Experience unparalleled flight performance with 8K camera capabilities, 40-minute flight time, and advanced AI obstacle avoidance technology. Perfect for professional photographers and content creators.
+          </p>
+
+          <div class="price-container">
+            <span class="current-price">$2,499</span>
+            <span class="original-price">$2,849</span>
+            <span class="save-badge">Save $350</span>
+          </div>
+
+          <p class="installment-text">
+            Or pay in 4 interest-free payments of <strong>$624.75</strong>
+          </p>
+
+          <div class="cta-actions">
+            <button class="btn btn-primary" onclick="addToCart('DJI Mavic 4 Pro', 2499)">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span>Add to Cart - $2,499</span>
+            </button>
+
+            <button class="btn btn-secondary" id="wishlist-btn" onclick="toggleWishlist()">
+              <i class="fa-regular fa-heart" id="wishlist-icon"></i>
+              <span id="wishlist-text">Add to Wishlist</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="specifications" class="features-section">
+      <div class="section-header">
+        <h2>Explore the <span class="highlight">Key Features</span></h2>
+        <p>Powerful technology designed to make every flight extraordinary</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon icon-purple"><i class="fa-solid fa-video"></i></div>
+          <span class="feature-category">01 / CAMERA</span>
+          <h3>8K Cinematic Video</h3>
+          <p>Capture crisp, detailed footage and professional-quality aerial shots with an advanced high-resolution camera.</p>
+          <div class="feature-stat">
+            <span class="stat-value">8K</span>
+            <span class="stat-label">Video resolution</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon icon-teal"><i class="fa-solid fa-camera"></i></div>
+          <span class="feature-category">02 / PHOTOGRAPHY</span>
+          <h3>48MP Photos</h3>
+          <p>Preserve the fine details in landscapes, architecture, and creative projects with high-resolution photography.</p>
+          <div class="feature-stat">
+            <span class="stat-value">48MP</span>
+            <span class="stat-label">Photo resolution</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon icon-green"><i class="fa-solid fa-battery-full"></i></div>
+          <span class="feature-category">03 / ENDURANCE</span>
+          <h3>Longer Flights</h3>
+          <p>Spend more time framing the perfect shot with a flight time built for extended creative sessions.</p>
+          <div class="feature-stat">
+            <span class="stat-value">40 min</span>
+            <span class="stat-label">Flight time</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon icon-amber"><i class="fa-solid fa-wifi"></i></div>
+          <span class="feature-category">04 / CONNECTIVITY</span>
+          <h3>Extended Range</h3>
+          <p>Explore more of your surroundings while maintaining video feedback and responsive control system reliability.</p>
+          <div class="feature-stat">
+            <span class="stat-value">15 km</span>
+            <span class="stat-label">Max transmission</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon icon-blue"><i class="fa-solid fa-shield-halved"></i></div>
+          <span class="feature-category">05 / SAFETY</span>
+          <h3>360° Obstacle Avoidance</h3>
+          <p>Smart obstacle sensing helps you fly with confidence, avoiding collisions in tight spaces effortlessly.</p>
+          <div class="feature-stat">
+            <span class="stat-value">Omni</span>
+            <span class="stat-label">Directional sensing</span>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon icon-rose"><i class="fa-solid fa-gauge-high"></i></div>
+          <span class="feature-category">06 / PERFORMANCE</span>
+          <h3>Built for Speed</h3>
+          <p>Responsive flight performance helps you follow fast targets and capture dynamic action with ease.</p>
+          <div class="feature-stat">
+            <span class="stat-value">68 km/h</span>
+            <span class="stat-label">Top speed</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="reviews-section">
+      <div class="section-header">
+        <h2>What Our <span class="highlight">Customers Say</span></h2>
+        <p>Real experiences from professional pilots and creators</p>
+      </div>
+
+      <div class="reviews-layout">
+        <div class="rating-summary-card">
+          <div class="big-score">4.9</div>
+          <div class="stars-group">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="total-reviews">Based on 2,847 reviews</p>
+
+          <div class="rating-bars">
+            <div class="bar-row"><span>5★</span><div class="bar-bg"><div class="bar-fill" style="width: 78%;"></div></div><span>78%</span></div>
+            <div class="bar-row"><span>4★</span><div class="bar-bg"><div class="bar-fill" style="width: 15%;"></div></div><span>15%</span></div>
+            <div class="bar-row"><span>3★</span><div class="bar-bg"><div class="bar-fill" style="width: 5%;"></div></div><span>5%</span></div>
+            <div class="bar-row"><span>2★</span><div class="bar-bg"><div class="bar-fill" style="width: 1.5%;"></div></div><span>1.5%</span></div>
+            <div class="bar-row"><span>1★</span><div class="bar-bg"><div class="bar-fill" style="width: 0.5%;"></div></div><span>0.5%</span></div>
+          </div>
+
+          <div class="rating-metrics">
+            <div class="metric"><span class="metric-val">96%</span><span class="metric-lbl">Would recommend</span></div>
+            <div class="metric"><span class="metric-val">4.8</span><span class="metric-lbl">Quality rating</span></div>
+          </div>
+        </div>
+
+        <div class="reviews-list">
+          <div class="review-card">
+            <div class="review-header">
+              <img src="./avatar-1-DZTe_nEx.png" alt="Marcus Chen" class="avatar" />
+              <div class="user-info">
+                <h4>Marcus Chen</h4>
+                <p class="user-role">Professional Photographer</p>
+                <div class="stars-inline">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <span>5.0</span>
+                </div>
+              </div>
+              <div class="review-meta">
+                <span class="verified-tag">Verified Purchase</span>
+                <span class="review-date">3 months ago</span>
+              </div>
+            </div>
+            <p class="review-text">"The DJI Mavic 4 Pro has revolutionized my aerial photography work. The 8K video quality is absolutely stunning, and the 40-minute flight time means I can capture entire shoots without battery anxiety."</p>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <img src="./avatar-2-DvihTPKl.jpg" alt="Thomas Anderson" class="avatar" />
+              <div class="user-info">
+                <h4>Thomas Anderson</h4>
+                <p class="user-role">Real Estate Agent</p>
+                <div class="stars-inline">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                  <span>5.0</span>
+                </div>
+              </div>
+              <div class="review-meta">
+                <span class="verified-tag">Verified Purchase</span>
+                <span class="review-date">2 months ago</span>
+              </div>
+            </div>
+            <p class="review-text">"As a real estate professional, the DJI Mavic 4 Pro gives me the edge I need. The automated flight modes make it incredibly easy to capture perfect property shots every time."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="related-products" class="related-section">
+      <div class="section-header">
+        <h2>Complete Your <span class="highlight">Setup</span></h2>
+        <p>Essential accessories and complementary products</p>
+      </div>
+
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="card-img-wrapper">
+            <span class="card-badge badge-teal">Accessory</span>
+            <img src="./related-products-1-D4JR6uDa.png" alt="Pro Controller" />
+          </div>
+          <div class="card-content">
+            <h3>Pro Controller</h3>
+            <p>Enhanced remote with 7" HD display and extended battery life</p>
+            <div class="card-footer">
+              <span class="card-price">$599</span>
+              <button class="btn btn-sm" onclick="addToCart('Pro Controller', 599)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-img-wrapper">
+            <span class="card-badge badge-green">Essential</span>
+            <img src="./related-products-2-OSxMogX9.png" alt="Travel Case" />
+          </div>
+          <div class="card-content">
+            <h3>Travel Case</h3>
+            <p>Waterproof aluminum case with custom foam inserts for safe</p>
+            <div class="card-footer">
+              <span class="card-price">$299</span>
+              <button class="btn btn-sm" onclick="addToCart('Travel Case', 299)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-img-wrapper">
+            <span class="card-badge badge-blue">Power</span>
+            <img src="./related-products-3-DDld9RDW.png" alt="Battery Kit" />
+          </div>
+          <div class="card-content">
+            <h3>Battery Kit</h3>
+            <p>3 additional batteries with charging hub for extended flights</p>
+            <div class="card-footer">
+              <span class="card-price">$449</span>
+              <button class="btn btn-sm" onclick="addToCart('Battery Kit', 449)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="card-img-wrapper">
+            <span class="card-badge badge-orange">Safety</span>
+            <img src="./related-products-4-bI1kHqI6.png" alt="Safety Kit" />
+          </div>
+          <div class="card-content">
+            <h3>Safety Kit</h3>
+            <p>Propeller guards and landing gear for enhanced safety and stability</p>
+            <div class="card-footer">
+              <span class="card-price">$129</span>
+              <button class="btn btn-sm" onclick="addToCart('Safety Kit', 129)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="all-accessories-container">
+      <button class="btn-outline" onclick="showToast('Loading all accessories...')">View All Accessories</button>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <div class="logo-icon"><i class="fa-solid fa-helicopter"></i></div>
+          <span>DJI</span>
+        </a>
+        <p>Leading the future of aerial technology with innovative drone solutions for professionals and enthusiasts worldwide.</p>
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Products</h3>
+        <ul>
+          <li><a href="#home">DJI Mavic 4 Pro</a></li>
+          <li><a href="#related-products">DJI Mini</a></li>
+          <li><a href="#related-products">DJI Enterprise</a></li>
+          <li><a href="#related-products">Accessories</a></li>
+          <li><a href="#">Software</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">User Manual</a></li>
+          <li><a href="#">Firmware Updates</a></li>
+          <li><a href="#">Warranty</a></li>
+          <li><a href="#">Contact Support</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partners</a></li>
+          <li><a href="#">Investors</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 DJI. All rights reserved. | Privacy Policy | Terms of Service</p>
+      <div class="payment-methods">
+        <div class="payment-badge paypal">PayPal</div>
+        <div class="payment-badge mc">mastercard</div>
+        <div class="payment-badge visa">VISA</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let isWishlisted = false;
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      toastMessage.textContent = msg;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function addToCart(itemName, price) {
+      showToast(`Added ${itemName} ($${price}) to your cart!`);
+    }
+
+    function toggleWishlist() {
+      const wishlistIcon = document.getElementById('wishlist-icon');
+      const wishlistText = document.getElementById('wishlist-text');
+      
+      isWishlisted = !isWishlisted;
+      
+      if (isWishlisted) {
+        wishlistIcon.className = 'fa-solid fa-heart';
+        wishlistIcon.style.color = '#EF4444';
+        wishlistText.textContent = 'Saved to Wishlist';
+        showToast('Saved to Wishlist!');
+      } else {
+        wishlistIcon.className = 'fa-regular fa-heart';
+        wishlistIcon.style.color = '';
+        wishlistText.textContent = 'Add to Wishlist';
+        showToast('Removed from Wishlist');
+      }
+    }
+  </script>
+</body>
+</html>
